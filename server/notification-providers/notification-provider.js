@@ -29,7 +29,11 @@ class NotificationProvider {
     }
 
     doMessageVariableExpansion(msg, monitorJSON, heartbeatJSON) {
-        let dictionnary = {};
+        let dictionnary = {
+            "{{NAME}}": "Test",
+            "{{HOSTNAME_OR_URL}}": "testing.hostname",
+            "{{STATUS}}": "⚠️ Test",
+        };
 
         if (monitorJSON !== null) {
 
