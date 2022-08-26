@@ -54,36 +54,7 @@ class SMTP extends NotificationProvider {
             // If custom subject is not empty, change subject for notification
             if (customSubject !== "") {
 
-                // Replace "MACROS" with corresponding variable
-                let replaceName = new RegExp("{{NAME}}", "g");
-                let replaceHostnameOrURL = new RegExp("{{HOSTNAME_OR_URL}}", "g");
-                let replaceStatus = new RegExp("{{STATUS}}", "g");
-
-                // Lets start with dummy values to simplify code
-                let monitorName = "Test";
-                let monitorHostnameOrURL = "testing.hostname";
-                let serviceStatus = "⚠️ Test";
-
-                if (monitorJSON !== null) {
-                    monitorName = monitorJSON["name"];
-
-                    if (monitorJSON["type"] === "http" || monitorJSON["type"] === "keyword") {
-                        monitorHostnameOrURL = monitorJSON["url"];
-                    } else {
-                        monitorHostnameOrURL = monitorJSON["hostname"];
-                    }
-                }
-
-                if (heartbeatJSON !== null) {
-                    serviceStatus = (heartbeatJSON["status"] === DOWN) ? "🔴 Down" : "✅ Up";
-                }
-
-                // Break replace to one by line for better readability
-                customSubject = customSubject.replace(replaceStatus, serviceStatus);
-                customSubject = customSubject.replace(replaceName, monitorName);
-                customSubject = customSubject.replace(replaceHostnameOrURL, monitorHostnameOrURL);
-
-                subject = customSubject;
+                subject = super.doMessageVariableExpansion(customSubject, monitorJSON, heartbeatJSON);
             }
         }
 
