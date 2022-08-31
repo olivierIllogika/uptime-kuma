@@ -93,25 +93,28 @@
         <div class="mb-3">
             <label for="subject-email" class="form-label">{{ $t("emailCustomSubject") }}</label>
             <input id="subject-email" v-model="$parent.notification.customSubject" type="text" class="form-control" autocomplete="false" placeholder="">
-            <div v-pre class="form-text">
-                (leave blank for default one)<br />
-                {{NAME}}: Service Name<br />
-                {{HOSTNAME_OR_URL}}: Hostname or URL<br />
-                {{URL}}: URL<br />
-                {{STATUS}}: Status<br />
-            </div>
+            <VariableExpansionField />
         </div>
+
+        <div class="mb-3">
+            <label for="body-email" class="form-label">{{ $t("emailCustomBody") }}</label>
+            <input id="body-email" v-model="$parent.notification.customBody" type="text" class="form-control" autocomplete="false" placeholder="">
+            <VariableExpansionField />
+        </div>
+
     </div>
 </template>
 
 <script>
 import HiddenInput from "../HiddenInput.vue";
 import ToggleSection from "../ToggleSection.vue";
+import VariableExpansionField from "../VariableExpansionField.vue";
 
 export default {
     components: {
         HiddenInput,
         ToggleSection,
+        VariableExpansionField,
     },
     computed: {
         hasRecipient() {

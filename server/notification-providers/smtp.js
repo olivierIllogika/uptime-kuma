@@ -65,6 +65,17 @@ class SMTP extends NotificationProvider {
             bodyTextContent = `${msg}\nTime (UTC): ${heartbeatJSON["time"]}`;
         }
 
+        let customBody = "";
+        if (notification.customBody) {
+            customBody = notification.customBody.trim();
+        }
+
+        // If custom body is not empty, change body for notification
+        if (customBody !== "") {
+
+            bodyTextContent = super.doMessageVariableExpansion(customBody, monitorJSON, heartbeatJSON);
+        }        
+
         // send mail with defined transport object
         await transporter.sendMail({
             from: notification.smtpFrom,
