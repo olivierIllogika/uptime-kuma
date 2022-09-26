@@ -93,14 +93,13 @@
         <div class="mb-3">
             <label for="subject-email" class="form-label">{{ $t("emailCustomSubject") }}</label>
             <input id="subject-email" v-model="$parent.notification.customSubject" type="text" class="form-control" autocomplete="false" placeholder="">
-            <VariableExpansionField />
         </div>
 
         <div class="mb-3">
             <label for="body-email" class="form-label">{{ $t("emailCustomBody") }}</label>
             <input id="body-email" v-model="$parent.notification.customBody" type="text" class="form-control" autocomplete="false" placeholder="">
-            <VariableExpansionField />
         </div>
+        <VariableExpansionField id="body-email-2" v-model="$parent.notification.customBody" placeholder="test">{{ $t("emailCustomBody") }}</VariableExpansionField>
 
     </div>
 </template>
